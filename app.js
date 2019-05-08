@@ -32,6 +32,9 @@ const twillRouter = require('./routes/twillRouter');
 
 const app = express();
 
+// Required for Heroku deployment -- otherwise will use http rather than https?
+app.enable('trust proxy');
+
 // Session cookie for LTI launch info
 app.use(cookieSession({
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
