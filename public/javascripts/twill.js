@@ -190,7 +190,7 @@ function loadVizPack(data, roster) {
             return author.id;
             
         })
-        .style('stroke', function(d) { return color(d.depth + 1); })
+        .style('stroke', function(d) { return color(d.depth + 2); })
         .style('stroke-width', 0)
         .style('opacity', 0)
         .style('fill', function(d) {
@@ -267,7 +267,7 @@ function loadVizSunburst(data, roster) {
             return author.id;
             
         })
-        .style('stroke', function(d) { return color(d.depth + 1); })
+        .style('stroke', function(d) { return color(d.depth + 2); })
         .style('stroke-width', 0)
         .style('fill', function(d) { 
             if (d.parent === null) {
@@ -351,7 +351,7 @@ function loadVizTimeline(data, roster) {
         .attr('class', 'node')
         .attr('r', 0)
         .attr('data-twill-id', function(d) { return d.user_id; })
-        .style('stroke', color(3))
+        .style('stroke', color(4))
         .style('stroke-width', 0)
         .style('fill', color(2))
         .style('opacity', 0)
