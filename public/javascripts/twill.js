@@ -310,7 +310,7 @@ function loadVizTimeline(data, roster) {
     
     x = d3.scaleTime()
         .domain([new Date(dateExtent[0]), new Date(dateExtent[dateExtent.length - 1])])
-        .range([0, dimensions.width - margin]);
+        .range([0, dimensions.width - margin * 2]);
 
     y = d3.scaleLinear()
         .domain([24, 0])
@@ -363,7 +363,7 @@ function loadVizTimeline(data, roster) {
         .attr('transform', 'translate(0,0)')
         .call(d3.axisLeft(y)
             .tickFormat(function(d) { 
-                return timeFormat(new Date("T" + d.toString().replace(/^0/, '') + ":00")); 
+                return timeFormat(new Date("T" + d.replace(/^0/, '') + ":00")); 
             })
         );
 
