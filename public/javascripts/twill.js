@@ -363,7 +363,7 @@ function loadVizTimeline(data, roster) {
         .attr('transform', 'translate(0,0)')
         .call(d3.axisLeft(y)
             .tickFormat(function(d) { 
-                return timeFormat(new Date("T" + d + ":00")); 
+                return timeFormat(new Date("T" + d.toString().replace(/^0/, '') + ":00")); 
             })
         );
 
