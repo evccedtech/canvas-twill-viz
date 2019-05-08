@@ -190,7 +190,7 @@ function loadVizPack(data, roster) {
             return author.id;
             
         })
-        .style('stroke', function(d) { return d.depth + 1; })
+        .style('stroke', function(d) { return color(d.depth + 1); })
         .style('stroke-width', 0)
         .style('opacity', 0)
         .style('fill', function(d) {
@@ -267,7 +267,7 @@ function loadVizSunburst(data, roster) {
             return author.id;
             
         })
-        .style('stroke', function(d) { return d.depth + 1; })
+        .style('stroke', function(d) { return color(d.depth + 1); })
         .style('stroke-width', 0)
         .style('fill', function(d) { 
             if (d.parent === null) {
