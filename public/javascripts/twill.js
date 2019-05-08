@@ -364,7 +364,7 @@ function loadVizTimeline(data, roster) {
         .attr('class', 'yaxis')
         .attr('transform', 'translate(0,0)')
         .call(d3.axisLeft(y)
-            .tickFormat(function(d) { return timeFormat(d); })
+            .tickFormat(function(d) { return timeFormat(new Date(d.created_at).getHours()); })
         );
 
 }
