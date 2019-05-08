@@ -81,7 +81,7 @@ function selectRosterName(id) {
 }
 
 function resetRosterName() {
-    $("#roster div.item").removeClass('active');
+    $("#roster select option[value='---']").prop('selected', true);
 }
 
 function getAuthorInfo(authorInfo) {
