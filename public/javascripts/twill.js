@@ -159,12 +159,17 @@ function loadVizPack(data, roster) {
         node,
         pack,
         root,
-        svg = d3.select('#viz svg');
+        svg = d3.select('#viz svg'),
+        tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .html(function(d) { return d.created_at; });
         
     svg.selectAll('g').remove();
     
     svg.attr('width', dimensions.width)
         .attr('height', dimensions.height);
+        
+    svg.call(tip);
         
     pack = d3.pack()
         .size([dimensions.width - 2 * margin, dimensions.height - 2 * margin])
@@ -203,10 +208,12 @@ function loadVizPack(data, roster) {
         .on('mouseover', function(d) {
             if (d.parent !== null) {
                 d3.select(this).style('stroke-width', 1);
+                tip.show;
             }
         })
         .on('mouseout', function(d) {
             d3.select(this).style('stroke-width', 0);
+            tip.hide;
         });
         
     node.selectAll('circle')
