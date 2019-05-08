@@ -159,9 +159,7 @@ function loadVizPack(data, roster) {
         node,
         pack,
         root,
-        svg = d3.select('#viz svg')
-        tipFactory = d3scription(function(d) { return d.data.message; }),
-        tip = tipFactory().element(svg);
+        svg = d3.select('#viz svg');
         
     svg.selectAll('g').remove();
     
@@ -202,15 +200,18 @@ function loadVizPack(data, roster) {
                 return color(d.depth);
             }
         })
+        .attr('title', function(d) {
+            var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
+            
+            return author.short_name + '\n' + d.data.message;
+        })
         .on('mouseover', function(d) {
             if (d.parent !== null) {
                 d3.select(this).style('stroke-width', 1);
-                tip.show;
             }
         })
         .on('mouseout', function(d) {
             d3.select(this).style('stroke-width', 0);
-            tip.hide;
         });
         
     node.selectAll('circle')
