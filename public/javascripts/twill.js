@@ -334,7 +334,7 @@ function loadVizTimeline(data, roster) {
         .append('g')
         .attr('class', 'post')
         .attr('transform', function(d) {
-            return 'translate(' + x(new Date(d.created_at)) + ',' + y(new Date(d.created_at)) + ')';
+            return 'translate(' + x(new Date(d.created_at)) + ',' + y(new Date(d.created_at).getHours()) + ')';
         });
         
     nodes.append('circle')
@@ -363,8 +363,7 @@ function loadVizTimeline(data, roster) {
         .attr('transform', 'translate(0,0)')
         .call(d3.axisLeft(y)
             .tickFormat(function(d) { 
-                console.log(d);
-                return timeFormat(new Date(d)); 
+                return timeFormat(new Date("T" + d + ":00")); 
             })
         );
 
