@@ -161,7 +161,7 @@ function loadVizPack(data, roster) {
         root,
         svg = d3.select('#viz svg')
         tipFactory = d3scription(function(d) { return d; }),
-        tip = tipFactory().element(el);
+        tip = tipFactory().element(svg);
         
     svg.selectAll('g').remove();
     
