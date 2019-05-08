@@ -34,14 +34,14 @@
     color: #7c7c7c;
 }
 
-#viz .xaxis text,
-#viz .yaxis text {
+#viz .axis text {
     fill: #666;
 }
 
-#viz .xaxis line,
-#viz .yaxis line,
-#viz .xaxis path,
-#viz .yaxis path, {
+#viz .axis line {
+    stroke: #666;
+}
+
+#viz .axis path {
     stroke: #666;
 }

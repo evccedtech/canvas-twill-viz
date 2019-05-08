@@ -354,12 +354,12 @@ function loadVizTimeline(data, roster) {
         .style('opacity', 1);
         
     g.append('g')
-        .attr('class', 'xaxis')
+        .attr('class', 'axis x')
         .attr('transform', 'translate(0,' + (dimensions.height - 40) + ')')
         .call(d3.axisBottom(x).ticks(4));
         
     g.append('g')
-        .attr('class', 'yaxis')
+        .attr('class', 'axis y')
         .attr('transform', 'translate(0,0)')
         .call(d3.axisLeft(y)
             .tickFormat(function(d) { 
