@@ -2,15 +2,15 @@ const color = d3.scaleSequential(d3.interpolateReds).domain([0,8]);
 const format = d3.format(",");
 
 function getRoster() {
-    return $.get('http://localhost:3000/twill/roster');
+    return $.get('https://canvas-twill-viz.herokuapp.com/twill/roster');
 }
 
 function getTopicList() {
-    return $.get('http://localhost:3000/twill/topicList');
+    return $.get('https://canvas-twill-viz.herokuapp.com/twill/topicList');
 }
 
 function getEntries(topicId) {
-    return $.get('http://localhost:3000/twill/topics/' + topicId);
+    return $.get('https://canvas-twill-viz.herokuapp.com/twill/topics/' + topicId);
 }
 
 function loadRoster(roster) {
