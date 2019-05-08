@@ -159,17 +159,14 @@ function loadVizPack(data, roster) {
         node,
         pack,
         root,
-        svg = d3.select('#viz svg'),
-        tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .html(function(d) { return d.created_at; });
+        svg = d3.select('#viz svg')
+        tipFactory = d3scription(function(d) { return d; }),
+        tip = tipFactory().element(el);
         
     svg.selectAll('g').remove();
     
     svg.attr('width', dimensions.width)
         .attr('height', dimensions.height);
-        
-    svg.call(tip);
         
     pack = d3.pack()
         .size([dimensions.width - 2 * margin, dimensions.height - 2 * margin])
