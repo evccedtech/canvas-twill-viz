@@ -190,7 +190,7 @@ function loadVizPack(data, roster) {
             return author.id;
             
         })
-        .style('stroke', 'mediumblue')
+        .style('stroke', function(d) { return d.depth + 1; })
         .style('stroke-width', 0)
         .style('opacity', 0)
         .style('fill', function(d) {
@@ -267,6 +267,8 @@ function loadVizSunburst(data, roster) {
             return author.id;
             
         })
+        .style('stroke', function(d) { return d.depth + 1; })
+        .style('stroke-width', 0)
         .style('fill', function(d) { 
             if (d.parent === null) {
                 return '#fff';
@@ -274,7 +276,15 @@ function loadVizSunburst(data, roster) {
                 return color(d.depth);
             }
         })
-        .style('opacity', 0);
+        .style('opacity', 0)
+        .on('mouseover', function(d) {
+            if (d.parent !== null) {
+                d3.select(this).style('stroke-width', 1);
+            }
+        })
+        .on('mouseout', function(d) {
+            d3.select(this).style('stroke-width', 0);
+        });
         
     path.selectAll('path')
         .transition()
@@ -341,10 +351,16 @@ function loadVizTimeline(data, roster) {
         .attr('class', 'node')
         .attr('r', 0)
         .attr('data-twill-id', function(d) { return d.user_id; })
-        .style('fill', function(d) {
-            return color(2);
+        .style('stroke', color(3))
+        .style('stroke-width', 0)
+        .style('fill', color(2))
+        .style('opacity', 0)
+        .on('mouseover', function(d) {
+            d3.select(this).style('stroke-width', 1);
         })
-        .style('opacity', 0);
+        .on('mouseout', function(d) {
+            d3.select(this).style('stroke-width', 0);
+        });;
         
     nodes.selectAll('circle')
         .transition()
