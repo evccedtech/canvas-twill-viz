@@ -326,7 +326,7 @@ function loadVizTimeline(data, roster) {
         .attr('height', dimensions.height);
 
     g = svg.append('g')
-        .attr('transform', 'translate(' + margin / 2 + ',' + margin / 2 + ')');
+        .attr('transform', 'translate(' + margin + ',' + margin / 2 + ')');
         
     nodes = g.selectAll('.post')
         .data(posts)
