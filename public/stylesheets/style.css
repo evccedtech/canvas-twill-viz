@@ -40,6 +40,8 @@
 }
 
 #viz .xaxis line,
-#viz .yaxis line {
+#viz .yaxis line,
+#viz .xaxis path,
+#viz .yaxis path, {
     stroke: #666;
 }
