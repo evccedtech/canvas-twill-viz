@@ -60,6 +60,8 @@ app.post('/lti_launch', function(req, res, next) {
     
     ltiDetails = null;
     
+    console.log('DEBUG: ', req.body);
+    
     // LTI key match
     if (req.body['oauth_consumer_key'] === ltiKey) {
         
