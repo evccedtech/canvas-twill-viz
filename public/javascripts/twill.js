@@ -302,6 +302,7 @@ function loadVizTimeline(data, roster) {
         radius,
         svg = d3.select('#viz svg'),
         threads = data.children,
+        timeFormat = d3.timeFormat('%I %p'),
         x,
         y;
         
@@ -362,7 +363,9 @@ function loadVizTimeline(data, roster) {
     g.append('g')
         .attr('class', 'yaxis')
         .attr('transform', 'translate(0,0)')
-        .call(d3.axisLeft(y).tickFormat(function(d) { return d; }));        
+        .call(d3.axisLeft(y)
+            .tickFormat(function(d) { return timeFormat(d); })
+        );
 
 }
 

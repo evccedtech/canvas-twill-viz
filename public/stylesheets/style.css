@@ -33,3 +33,13 @@
 #info > div p {
     color: #7c7c7c;
 }
+
+#viz .xaxis text,
+#viz .yaxis text {
+    fill: #666;
+}
+
+#viz .xaxis line,
+#viz .yaxis line {
+    stroke: #666;
+}
