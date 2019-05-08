@@ -306,8 +306,6 @@ function loadVizTimeline(data, roster) {
         x,
         y;
         
-    console.log(posts);
-        
     dateExtent = d3.extent(_.pluck(posts, 'created_at'));
     
     x = d3.scaleTime()
@@ -365,7 +363,7 @@ function loadVizTimeline(data, roster) {
         .attr('transform', 'translate(0,0)')
         .call(d3.axisLeft(y)
             .tickFormat(function(d) { 
-                return timeFormat(new Date("T" + d.created_at + ":00")); 
+                return timeFormat(new Date(d.created_at)); 
             })
         );
 
