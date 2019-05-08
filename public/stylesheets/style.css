@@ -9,11 +9,6 @@
     cursor: pointer;
 }
 
-#roster .list {
-    max-height: 300px;
-    overflow-x: auto;
-}
-
 #roster .item > .label {
     background: #00bfff;
     border-radius: 50%;

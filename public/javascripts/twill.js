@@ -15,10 +15,18 @@ function getEntries(topicId) {
 
 function loadRoster(roster) {
     
-    var $roster = $('#roster div.ui.list');
+    var $roster = $('#roster select');
     
     roster.forEach(function(person) {
-        $roster.append('<div class="item" data-twill-id="' + person.id + '">' + person.short_name + ' <i class="label"></i></div>');
+        $roster.append('<option value="' + person.id + '">' + person.sortable_name + '</option>');
+    });
+    
+    $roster.change(function(e) {
+        
+        var id = $(e.currentTarget).val();
+        
+        resetRosterName();
+        selectRosterName(id);
     });
     
     $roster.on('click', '.item:not(.active)', function(e) {
@@ -42,12 +50,9 @@ function resetSelectionStats() {
     
 }
 
-function selectRosterName(e) {
-    
-    var id = $(e.currentTarget).data('twill-id');
+function selectRosterName(id) {
+
     var selection = d3.selectAll('.node[data-twill-id="' + id + '"]');
-    
-    $(e.currentTarget).addClass('active');
     
     d3.selectAll('.node')
         .each(function(d) {
@@ -588,8 +593,12 @@ $(document).ready(function() {
     getRoster().then(function(data) {
 
         roster = data;
+        
+        roster.sort(function(a, b) {
+            return a.sortable_name - b.sortable_name;
+        });
 
-        return getTopicList()
+        return getTopicList();
         
     }).done(function(data) {
         
