@@ -38,7 +38,7 @@ app.enable('trust proxy');
 // Session cookie for LTI launch info
 app.use(cookieSession({
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
-    name: 'testcookie',
+    name: 'session',
     keys: ['mySecretKey1', 'mySecretKey2']
 }));
 
@@ -117,10 +117,10 @@ app.get('/login', async function(req, res, next) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
     
-    console.log('testcookie: ', req.testcookie);
+    console.log('session: ', req.session);
     
     // First session -- session cookie isn't populated
-    if (!req.testcookie.populated) {
+    if (!req.session.populated) {
         
         console.log('No session data; initiating OAuth flow.');
         
@@ -135,14 +135,14 @@ app.get('/login', async function(req, res, next) {
         console.log('Session data exists; checking token status.');
         console.log('Session expires at ', req.sessionOptions.expires);
         
-        let refreshToken = req.testcookie.refresh_token;
+        let refreshToken = req.session.refresh_token;
         let tokenObject = {
-            access_token: req.testcookie.access_token,
+            access_token: req.session.access_token,
             refresh_token: refreshToken
         };
         let accessToken = oauth2.accessToken.create(tokenObject);
         let rightNow = new Date();
-        let expiry = new Date(req.testcookie.expires_at);
+        let expiry = new Date(req.session.expires_at);
         
         console.log((expiry.valueOf() - rightNow.valueOf()) / 1000 / 60 + ' minutes until token expires.');
         
@@ -154,7 +154,7 @@ app.get('/login', async function(req, res, next) {
             try {
                 accessToken = await accessToken.refresh();
                 
-                req.testcookie = {
+                req.session = {
                     access_token: accessToken.token.access_token,
                     refresh_token: refreshToken,
                     expires_at: accessToken.token.expires_at
@@ -195,15 +195,15 @@ app.get('/auth/canvas/callback', async function(req, res) {
         const result = await oauth2.authorizationCode.getToken({ code });
         const token = oauth2.accessToken.create(result);
         
-        req.testcookie = {
+        req.session = {
             access_token: token.token.access_token,
             refresh_token: token.token.refresh_token,
             expires_at: token.token.expires_at
         };
         
-        console.log(req.testcookie);
+        console.log(req.session);
         
-        console.log('Session populated = ', req.testcookie.populated);
+        console.log('Session populated = ', req.session.populated);
         
         return res.redirect('/login');
         
