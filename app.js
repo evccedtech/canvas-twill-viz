@@ -117,6 +117,8 @@ app.get('/login', async function(req, res, next) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
     
+    res.session.test = 'test';
+    
     console.log('session: ', req.session);
     
     // First session -- session cookie isn't populated
