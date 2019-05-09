@@ -352,14 +352,14 @@ function loadVizTimeline(data, roster) {
         .attr('r', 0)
         .attr('data-twill-id', function(d) { return d.user_id; })
         .style('stroke', color(4))
-        .style('stroke-width', 0)
+        .style('stroke-width', 1)
         .style('fill', color(2))
         .style('opacity', 0)
         .on('mouseover', function(d) {
-            d3.select(this).style('stroke-width', 1);
+            d3.select(this).style('opacity', 1);
         })
         .on('mouseout', function(d) {
-            d3.select(this).style('stroke-width', 0);
+            d3.select(this).style('opacity', .7);
         });;
         
     nodes.selectAll('circle')
@@ -367,7 +367,7 @@ function loadVizTimeline(data, roster) {
         .duration(250)
         .delay(function(d) { return x(new Date(d.created_at)); })
         .attr('r', function(d) { return radius(d.message_length); })
-        .style('opacity', 1);
+        .style('opacity', .7);
         
     g.append('g')
         .attr('class', 'axis x')
@@ -560,6 +560,8 @@ function toggleViz(type, discussions, roster) {
 }
 
 $(document).ready(function() {
+    
+    console.log($(window).height());
     
     var discussions;
     var roster;
