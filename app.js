@@ -125,7 +125,7 @@ app.get('/login', async function(req, res, next) {
         console.log('No session data; initiating OAuth flow.');
         
         // Begin OAuth flow
-        res.redirect('/auth/canvas');
+        return res.redirect('/auth/canvas');
         
     }
     
@@ -162,7 +162,7 @@ app.get('/login', async function(req, res, next) {
                 
                 console.log('Authentication refreshed.');
                 
-                res.redirect('/twill');
+                return res.redirect('/twill');
             } catch(err) {
                 console.log(err);
             }
@@ -170,7 +170,7 @@ app.get('/login', async function(req, res, next) {
         
         // Token is current
         else {
-            res.redirect('/twill');
+            return res.redirect('/twill');
         }
         
     }
@@ -180,7 +180,6 @@ app.get('/login', async function(req, res, next) {
 // Initial redirect for OAuth flow
 app.get('/auth/canvas', function(req, res) {
     console.log('Initiating OAuth flow');
-    console.log(authUri);
     res.redirect(authUri);
 });
 
@@ -191,8 +190,6 @@ app.get('/auth/canvas/callback', async function(req, res) {
     
     // Initial access code
     const code = req.query.code;
-    
-    console.log(code);
     
     try {
         const result = await oauth2.authorizationCode.getToken({ code });
