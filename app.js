@@ -48,8 +48,8 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // LTI launch
@@ -59,8 +59,6 @@ app.post('/lti_launch', function(req, res, next) {
     let ltiSecret = process.env.LTI_SECRET;
     
     ltiDetails = null;
-    
-    console.log('DEBUG: ', req.body);
     
     // LTI key match
     if (req.body['oauth_consumer_key'] === ltiKey) {
@@ -92,6 +90,7 @@ app.post('/lti_launch', function(req, res, next) {
                 }
                 
                 // Proceed to login
+                console.log('LTI launch successful; redirecting to login...');
                 res.redirect('/login');
                 
             }
@@ -117,8 +116,6 @@ app.get('/login', async function(req, res, next) {
     if (ltiDetails === null) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
-    
-    res.session.test = 'test';
     
     console.log('session: ', req.session);
     
@@ -165,7 +162,7 @@ app.get('/login', async function(req, res, next) {
                 
                 console.log('Authentication refreshed.');
                 
-                return res.redirect('/twill');
+                res.redirect('/twill');
             } catch(err) {
                 console.log(err);
             }
@@ -173,7 +170,7 @@ app.get('/login', async function(req, res, next) {
         
         // Token is current
         else {
-            return res.redirect('/twill');
+            res.redirect('/twill');
         }
         
     }
@@ -183,6 +180,7 @@ app.get('/login', async function(req, res, next) {
 // Initial redirect for OAuth flow
 app.get('/auth/canvas', function(req, res) {
     console.log('Initiating OAuth flow');
+    console.log(authUri);
     res.redirect(authUri);
 });
 
@@ -193,6 +191,8 @@ app.get('/auth/canvas/callback', async function(req, res) {
     
     // Initial access code
     const code = req.query.code;
+    
+    console.log(code);
     
     try {
         const result = await oauth2.authorizationCode.getToken({ code });
@@ -205,8 +205,6 @@ app.get('/auth/canvas/callback', async function(req, res) {
         };
         
         console.log(req.session);
-        
-        console.log('Session populated = ', req.session.populated);
         
         return res.redirect('/login');
         
