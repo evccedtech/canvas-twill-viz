@@ -1,49 +1,60 @@
 extends layout
 
 block content
-  div.row
-    div#viz.ui.ten.wide.column
-      svg
-    div#sidebar.six.wide.column
-      div.ui.basic.segment
-        div#controls.ui.tiny.compact.basic.buttons
-          button.ui.active.button(data-twill-viztype="pack") Circle Pack
-          button.ui.button(data-twill-viztype="sunburst") Sunburst
-          button.ui.button(data-twill-viztype="timeline") Timeline
-      div.ui.basic.segment 
-        div#roster 
-          h2.ui.tiny.header Participants
-          form.ui.form
-            select 
-                option(value="---") ---
-      div.ui.basic.segment 
-        div#info
-          h2.ui.tiny.header Statistics
-          table.ui.small.basic.table 
-            thead 
-              tr 
-                th 
-                th Course Total
-                th Current Selection
-            tbody 
-              tr 
-                td Topics
-                td 
-                td 
-              tr 
-                td Posts 
-                td 
-                td 
-              tr 
-                td Total Words
-                td 
-                td 
-              tr 
-                td Avg. Words / Post
-                td 
-                td
-    div#loader.ui.sixteen.wide.column
-      div.ui.inverted.page.dimmer
-        div.ui.active.text.loader 
-          h2.ui.small.header Loading
-          p Patience, please. This may take some time.          
+    div.ui.container 
+        div.ui.attached.stackable.menu 
+            div.ui.container 
+                div.ui.simple.dropdown.item Visualization Type 
+                    i.dropdown.icon 
+                    div.menu
+                        a.item(data-twill-viztype="pack") Circle Pack
+                        a.item(data-twill-viztype="sunburst") Sunburst
+                        a.item(data-twill-viztype="timeline") Timeline
+        div.ui.bottom.attached.basic.segment T
+
+//-  div.row
+//-    div#viz.ui.ten.wide.column
+//-      svg
+//-    div#sidebar.six.wide.column
+//-      div.ui.basic.segment
+//-        div#controls.ui.tiny.compact.basic.buttons
+//-          button.ui.active.button(data-twill-viztype="pack") Circle Pack
+//-          button.ui.button(data-twill-viztype="sunburst") Sunburst
+//-          button.ui.button(data-twill-viztype="timeline") Timeline
+//-      div.ui.basic.segment 
+//-        div#roster 
+//-          h2.ui.tiny.header Participants
+//-          form.ui.form
+//-            select 
+//-                option(value="---") ---
+//-      div.ui.basic.segment 
+//-        div#info
+//-          h2.ui.tiny.header Statistics
+//-          table.ui.small.basic.table 
+//-            thead 
+//-              tr 
+//-                th 
+//-                th Course Total
+//-                th Current Selection
+//-            tbody 
+//-              tr 
+//-                td Topics
+//-                td 
+//-                td 
+//-              tr 
+//-                td Posts 
+//-                td 
+//-                td 
+//-              tr 
+//-                td Total Words
+//-                td 
+//-                td 
+//-              tr 
+//-                td Avg. Words / Post
+//-                td 
+//-                td
+//-    div#loader.ui.sixteen.wide.column
+//-      div.ui.inverted.page.dimmer
+//-        div.ui.active.text.loader 
+//-          h2.ui.small.header Loading
+//-          p Patience, please. This may take some time.          
