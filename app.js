@@ -127,7 +127,7 @@ app.get('/login', async function(req, res, next) {
         console.log('No session data; initiating OAuth flow.');
         
         // Begin OAuth flow
-        return res.redirect('/auth/canvas');
+        res.redirect('/auth/canvas');
         
     }
     
