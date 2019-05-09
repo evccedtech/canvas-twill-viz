@@ -25,17 +25,7 @@ function loadRoster(roster) {
         
         var id = $(e.currentTarget).val();
         
-        resetRosterName();
         selectRosterName(id);
-    });
-    
-    $roster.on('click', '.item:not(.active)', function(e) {
-        
-        var id = $(e.currentTarget).data('twill-id');
-        
-        resetRosterName();
-        selectRosterName(e);
-
     });
     
 }
