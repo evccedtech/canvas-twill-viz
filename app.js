@@ -182,7 +182,7 @@ app.get('/auth/canvas', function(req, res) {
     console.log('Initiating OAuth flow');
     console.log(authUri);
     // Debugging weird OAuth issue that suddenly cropped up
-    console.log(send(JSON.stringify(req)));
+    console.log(JSON.stringify(req));
     res.send(JSON.stringify(req));
     res.redirect(authUri);
 });
