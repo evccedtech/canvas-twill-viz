@@ -203,7 +203,7 @@ app.get('/auth/canvas/callback', async function(req, res) {
         
         console.log(req.testcookie);
         
-        console.log('Session populated = ', req.session.populated);
+        console.log('Session populated = ', req.testcookie.populated);
         
         return res.redirect('/login');
         
