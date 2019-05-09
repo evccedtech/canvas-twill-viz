@@ -181,7 +181,10 @@ app.get('/login', async function(req, res, next) {
 app.get('/auth/canvas', function(req, res) {
     console.log('Initiating OAuth flow');
     console.log(authUri);
-    res.redirect(authUri);
+    // Debuggin weird OAuth issue that suddenly cropped up
+    console.log(send(JSON.stringify(req)));
+    res.send(JSON.stringify(req));
+//    res.redirect(authUri);
 });
 
 // Receives auth code and requests access token
