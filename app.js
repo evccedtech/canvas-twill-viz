@@ -206,6 +206,8 @@ app.get('/auth/canvas/callback', async function(req, res) {
         
         console.log(req.session);
         
+        console.log('Session populated = ', req.session.populated);
+        
         return res.redirect('/login');
         
     } catch(err) {
