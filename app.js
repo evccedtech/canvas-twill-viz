@@ -206,12 +206,19 @@ app.get('/auth/canvas/callback', async function(req, res) {
         
         console.log(req.session);
         
-        return res.redirect('/login');
+        return next();
+        
+        //return res.redirect('/login');
         
     } catch(err) {
         return res.status(500).send('Authentication failed.');
     }
     
+});
+
+app.use(function(req, res, next) {
+    console.log('Next in middleware');
+    console.log(req.session);
 });
 
 app.use('/twill', function(req, res, next) {
