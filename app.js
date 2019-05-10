@@ -35,13 +35,6 @@ const app = express();
 // Required for Heroku deployment -- otherwise will use http rather than https?
 app.enable('trust proxy');
 
-// Session cookie for LTI launch info
-app.use(cookieSession({
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
-    name: 'session',
-    keys: ['mySecretKey1', 'mySecretKey2']
-}));
-
 // View engine 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -51,6 +44,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Session cookie for LTI launch info
+app.use(cookieSession({
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
+    name: 'session',
+    keys: ['mySecretKey1', 'mySecretKey2'],
+    signed: true
+}));
 
 // LTI launch
 app.post('/lti_launch', function(req, res, next) {
