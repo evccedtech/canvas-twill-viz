@@ -110,9 +110,7 @@ app.post('/lti_launch', function(req, res, next) {
 // Authorization
 app.get('/login', async function(req, res, next) {
     
-    console.log(Date.now());
-    
-    console.log('Login ...');
+    console.log('Login route ...', Date.now());
     
     // No successful LTI launch
     if (ltiDetails === null) {
@@ -181,7 +179,7 @@ app.get('/login', async function(req, res, next) {
 
 // Initial redirect for OAuth flow
 app.get('/auth/canvas', function(req, res) {
-    console.log('Initiating OAuth flow');
+    console.log('Initiating OAuth flow...', Date.now());
     console.log(authUri);
     res.redirect(authUri);
 });
@@ -189,7 +187,7 @@ app.get('/auth/canvas', function(req, res) {
 // Receives auth code and requests access token
 app.get('/auth/canvas/callback', async function(req, res) {
     
-    console.log('Auth callback');
+    console.log('Auth callback...', Date.now());
     
     // Initial access code
     const code = req.query.code;
@@ -207,8 +205,8 @@ app.get('/auth/canvas/callback', async function(req, res) {
         };
         
         console.log(req.session);
-        
-        console.log(Date.now());
+
+        console.log('Redirecting to login...', Date.now());
         
         return res.redirect('/login');
         
