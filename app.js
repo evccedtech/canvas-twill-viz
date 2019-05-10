@@ -98,10 +98,7 @@ app.post('/lti_launch', function(req, res, next) {
                     // Proceed to login
                     console.log('LTI launch successful; redirecting to login...');
                     
-                    res.setHeader('Set-Cookie', cookie.serialize('refreshToken', null), {
-                        httpOnly: true,
-                        maxAge: 60
-                    });
+                    res.setHeader('Set-Cookie', cookie.serialize('refreshToken', 'foobar'));
                     
                     res.redirect('/login');
 
@@ -227,13 +224,15 @@ app.get('/auth/canvas/callback', async function(req, res) {
         const result = await oauth2.authorizationCode.getToken({ code });
         const token = oauth2.accessToken.create(result);
         
-        req.session = {
-            access_token: token.token.access_token,
-            refresh_token: token.token.refresh_token,
-            expires_at: token.token.expires_at
-        };
-        
-        console.log(req.session);
+//        req.session = {
+//            access_token: token.token.access_token,
+//            refresh_token: token.token.refresh_token,
+//            expires_at: token.token.expires_at
+//        };
+//        
+//        console.log(req.session);
+
+        res.setHeader('Set-Cookie', cookie.serialize('refreshToken', token.token.refresh_token));
 
         console.log('Redirecting to login...', Date.now());
         
