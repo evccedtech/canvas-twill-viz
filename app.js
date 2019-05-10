@@ -1,6 +1,5 @@
-const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
-//const cookieSession = require('cookie-session');
+const cookieSession = require('cookie-session');
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
@@ -47,14 +46,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Session cookie for LTI launch info
-/*
+
 app.use(cookieSession({
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
     name: 'session',
-    keys: ['mySecretKey1'],
-    signed: true
+    keys: ['mySecretKey1']
 }));
-*/
 
 // LTI launch
 app.post('/lti_launch', function(req, res, next) {
@@ -62,9 +59,6 @@ app.post('/lti_launch', function(req, res, next) {
     let ltiKey = process.env.LTI_KEY;
     let ltiSecret = process.env.LTI_SECRET;
     
-    let cookies = cookie.parse(req.headers.cookie || '');
-    
-    console.log('Cookies = ', cookies);
     
     ltiDetails = null;
     
@@ -98,7 +92,7 @@ app.post('/lti_launch', function(req, res, next) {
                     // Proceed to login
                     console.log('LTI launch successful; redirecting to login...');
                     
-                    res.setHeader('Set-Cookie', cookie.serialize('refreshToken', 'foobar'));
+                    req.session.test = 1;
                     
                     res.redirect('/login');
 
@@ -128,19 +122,8 @@ app.get('/login', async function(req, res, next) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
 
-    var cookies = cookie.parse(req.headers.cookie || '');
-    
-    console.log('Cookies = ', cookies);
-    
-    if (!cookies.refreshToken) {
-        
-        console.log('No refresh token stored; initiating OAuth flow.');
-        
-        res.redirect('/auth/canvas');
-        
-    }
     // First session -- session cookie isn't populated
-    /*
+
     if (!req.session.populated) {
         
         console.log('No session data; initiating OAuth flow.');
@@ -149,7 +132,6 @@ app.get('/login', async function(req, res, next) {
         res.redirect('/auth/canvas');
         
     }
-    */
     
     // Not the first session
     else {
@@ -216,23 +198,16 @@ app.get('/auth/canvas/callback', async function(req, res) {
     
     console.log(code);
     
-    var cookies = cookie.parse(req.headers.cookie || '');
-    
-    console.log('Cookies = ', cookies);
     
     try {
         const result = await oauth2.authorizationCode.getToken({ code });
         const token = oauth2.accessToken.create(result);
         
-//        req.session = {
-//            access_token: token.token.access_token,
-//            refresh_token: token.token.refresh_token,
-//            expires_at: token.token.expires_at
-//        };
-//        
-//        console.log(req.session);
-
-        res.setHeader('Set-Cookie', cookie.serialize('refreshToken', token.token.refresh_token));
+        req.session = {
+            access_token: token.token.access_token,
+            refresh_token: token.token.refresh_token,
+            expires_at: token.token.expires_at
+        };
 
         console.log('Redirecting to login...', Date.now());
         
