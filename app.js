@@ -113,7 +113,7 @@ app.post('/lti_launch', function(req, res, next) {
 });
 
 // Authorization
-app.get('/login', async function(req, res, next) {
+app.get('/login', function(req, res, next) {
     
     console.log('Login route ...', Date.now());
     
@@ -121,9 +121,10 @@ app.get('/login', async function(req, res, next) {
     if (ltiDetails === null) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
+    
+    console.log(req.session);
 
     // First session -- session cookie isn't populated
-
     if (!req.session.populated) {
         
         console.log('No session data; initiating OAuth flow.');
