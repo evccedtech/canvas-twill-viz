@@ -110,6 +110,8 @@ app.post('/lti_launch', function(req, res, next) {
 // Authorization
 app.get('/login', async function(req, res, next) {
     
+    console.log(Date.now());
+    
     console.log('Login ...');
     
     // No successful LTI launch
@@ -206,19 +208,14 @@ app.get('/auth/canvas/callback', async function(req, res) {
         
         console.log(req.session);
         
-        return next();
+        console.log(Date.now());
         
-        //return res.redirect('/login');
+        return res.redirect('/login');
         
     } catch(err) {
         return res.status(500).send('Authentication failed.');
     }
     
-});
-
-app.use(function(req, res, next) {
-    console.log('Next in middleware');
-    console.log(req.session);
 });
 
 app.use('/twill', function(req, res, next) {
