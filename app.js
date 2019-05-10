@@ -47,10 +47,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session cookie for LTI launch info
 app.use(cookieSession({
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
+//    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
     name: 'session',
-    keys: ['mySecretKey1', 'mySecretKey2'],
-    signed: true
+    keys: ['mySecretKey1'],
+//    signed: true
 }));
 
 // LTI launch
@@ -90,6 +90,7 @@ app.post('/lti_launch', function(req, res, next) {
                     
                 }
                 
+                console.log('New session?', req.session.isNew);
                 console.log(req.session);
                 req.session.test = true;
                 console.log(req.session);
@@ -122,6 +123,7 @@ app.get('/login', async function(req, res, next) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
     
+    console.log('New session?', req.session.isNew);
     console.log('session: ', req.session);
     
     // First session -- session cookie isn't populated
