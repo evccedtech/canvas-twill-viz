@@ -89,7 +89,9 @@ app.post('/lti_launch', function(req, res, next) {
                     
                 }
                 
+                console.log(req.session);
                 req.session.test = true;
+                console.log(req.session);
                 
                 // Proceed to login
                 console.log('LTI launch successful; redirecting to login...');
