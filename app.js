@@ -114,10 +114,12 @@ app.post('/lti_launch', function(req, res, next) {
 });
 
 // Authorization
-//app.get('/login', async function(req, res, next) {
-app.get('/login', function(req, res, next) {
+app.get('/login', async function(req, res, next) {
     
     console.log('Login route ...', Date.now());
+    
+    console.log(req.headers);
+    console.log(res.getHeaders());
     
     // No successful LTI launch
     if (ltiDetails === null) {
@@ -193,8 +195,7 @@ app.get('/auth/canvas', function(req, res) {
 });
 
 // Receives auth code and requests access token
-//app.get('/auth/canvas/callback', async function(req, res) {
-app.get('/auth/canvas/callback', function(req, res) {
+app.get('/auth/canvas/callback', async function(req, res) {
     
     console.log('Auth callback...', Date.now());
     
@@ -217,12 +218,10 @@ app.get('/auth/canvas/callback', function(req, res) {
 
         console.log('Redirecting to login...', Date.now());
         
-       // return res.redirect('/login');
-       res.redirect('/login');
+        return res.redirect('/login');
         
     } catch(err) {
-       // return res.status(500).send('Authentication failed.');
-       res.status(500).send('Authentication failed.');
+        return res.status(500).send('Authentication failed.');
     }
     
 });
