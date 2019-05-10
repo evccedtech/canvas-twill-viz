@@ -113,7 +113,7 @@ app.post('/lti_launch', function(req, res, next) {
 });
 
 // Authorization
-app.get('/login', function(req, res, next) {
+app.get('/login', async function(req, res, next) {
     
     console.log('Login route ...', Date.now());
     
@@ -145,7 +145,7 @@ app.get('/login', function(req, res, next) {
             access_token: req.session.access_token,
             refresh_token: refreshToken
         };
-        let accessToken = oauth2.accessToken.create(tokenObject);
+        let accessToken = await oauth2.accessToken.create(tokenObject);
         let rightNow = new Date();
         let expiry = new Date(req.session.expires_at);
         
