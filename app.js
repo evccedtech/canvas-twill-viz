@@ -126,8 +126,6 @@ app.get('/login', async function(req, res, next) {
     
     console.log('Login route ...', Date.now());
     
-    let 
-    
     // No successful LTI launch
     if (ltiDetails === null) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
