@@ -126,12 +126,24 @@ app.get('/login', async function(req, res, next) {
     
     console.log('Login route ...', Date.now());
     
+    let 
+    
     // No successful LTI launch
     if (ltiDetails === null) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
 
+    var cookies = cookie.parse(req.headers.cookie || '');
     
+    console.log('Cookies = ', cookies);
+    
+    if (!cookies.refreshToken) {
+        
+        console.log('No refresh token stored; initiating OAuth flow.');
+        
+        res.redirect('/auth/canvas');
+        
+    }
     // First session -- session cookie isn't populated
     /*
     if (!req.session.populated) {
