@@ -1,6 +1,6 @@
-const Cookies = require('cookies');
+const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
+//const cookieSession = require('cookie-session');
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
@@ -46,27 +46,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const cookieKeys = ['febrazzle hugazzle'];
-
-const cookies = new Cookies(req, res, {keys: cookieKeys});
-
-var refreshTokenCookie = cookies.get('RefreshToken', { signed: true });
-
-cookies.set('RefreshToken', 'foobar', { signed : true });
-
 // Session cookie for LTI launch info
-//app.use(cookieSession({
-//    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
-//    name: 'session',
-//    keys: ['mySecretKey1'],
-//    signed: true
-//}));
+/*
+app.use(cookieSession({
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
+    name: 'session',
+    keys: ['mySecretKey1'],
+    signed: true
+}));
+*/
 
 // LTI launch
 app.post('/lti_launch', function(req, res, next) {
     
     let ltiKey = process.env.LTI_KEY;
     let ltiSecret = process.env.LTI_SECRET;
+    
+    let cookies = cookie.parse(req.headers.cookie || '');
+    
+    console.log('Cookies = ', cookies);
     
     ltiDetails = null;
     
@@ -97,11 +95,17 @@ app.post('/lti_launch', function(req, res, next) {
                         user_id: req.body.custom_canvas_user_id
                     };
                     
+                    // Proceed to login
+                    console.log('LTI launch successful; redirecting to login...');
+                    
+                    res.setHeader('Set-Cookie', cookie.serialize('refreshToken', null), {
+                        httpOnly: true,
+                        maxAge: 60
+                    });
+                    
+                    res.redirect('/login');
+
                 }
-                
-                // Proceed to login
-                console.log('LTI launch successful; redirecting to login...');
-                res.redirect('/login');
                 
             }
             
@@ -139,11 +143,6 @@ app.get('/login', async function(req, res, next) {
         
     }
     */
-    
-    if (!refreshTokenCookie) {
-        console.log('No refresh token cookie');
-        res.redirect('/auth/canvas');
-    }
     
     // Not the first session
     else {
@@ -209,6 +208,10 @@ app.get('/auth/canvas/callback', async function(req, res) {
     const code = req.query.code;
     
     console.log(code);
+    
+    var cookies = cookie.parse(req.headers.cookie || '');
+    
+    console.log('Cookies = ', cookies);
     
     try {
         const result = await oauth2.authorizationCode.getToken({ code });
