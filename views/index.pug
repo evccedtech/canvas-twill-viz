@@ -3,21 +3,21 @@ extends layout
 block content
     div.ui.segment 
         div.ui.grid 
+            div#menu.row 
+                div#viztype.eight.wide.column 
+                    h2.ui.tiny.header Visualization Type
+                    div.ui.vertical.fluid.buttons 
+                        button.ui.active.basic.mini.button(data-twill-viztype="pack") Circle Pack
+                        button.ui.basic.mini.button(data-twill-viztype="sunburst") Sunburst
+                        button.ui.basic.mini.button(data-twill-viztype="timeline") Timeline
+                div#roster 
+                    h2.ui.tiny.header
+                        form.ui.form 
+                            select 
+                                option(value="") No Selection
             div.row 
                 div#viz.twelve.wide.column 
                     svg
-                div#menu.four.wide.column
-                    div#viztype
-                        h2.ui.tiny.header Visualization Type
-                        div.ui.vertical.fluid.buttons 
-                            button.ui.active.button(data-twill-viztype="pack") Circle Pack
-                            button.ui.button(data-twill-viztype="sunburst") Sunburst
-                            button.ui.button(data-twill-viztype="timeline") Timeline
-                    div#roster
-                        h2.ui.tiny.header Participant Selection 
-                            form.ui.form 
-                                select 
-                                    option(value="") No Selection
             div.row 
                 div#info.sixteen.wide.column 
                     h2.ui.tiny.header Statistics 
