@@ -567,6 +567,7 @@ $(document).ready(function() {
     var deferreds = [];
 
     $('.dimmer').dimmer('show');
+    $('.dropdown').dropdown();
     
     $('#wrapper').on('click', '.button:not(.active)', function(e) {
         
