@@ -91,7 +91,7 @@ function getAuthorInfo(authorInfo) {
 }
 
 function getVizWidth() {
-    return $('#wrapper > .bottom.attached.segment').width();
+    return $('#wrapper > .container > .segment').width();
 }
 
 function sumMessageLength(node) {
