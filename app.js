@@ -123,8 +123,6 @@ app.get('/login', async function(req, res, next) {
     if (ltiDetails === null) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
-    /*
-    console.log(req.session);
 
     // First session -- session cookie isn't populated
     if (!req.session.populated) {
@@ -181,7 +179,6 @@ app.get('/login', async function(req, res, next) {
         }
         
     }
-    */
     
 });
 
