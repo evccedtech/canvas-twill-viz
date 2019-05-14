@@ -92,8 +92,6 @@ app.post('/lti_launch', function(req, res, next) {
                     // Proceed to login
                     console.log('LTI launch successful; redirecting to login...');
                     
-                    req.session.test = 1;
-                    
                     res.redirect('/login');
 
                 }
