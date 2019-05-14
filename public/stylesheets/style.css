@@ -4,6 +4,10 @@
     min-height: 400px;
 }
 
+#wrapper > .ui.grid {
+    
+}
+
 #roster {
     margin-top: 2em;
 }
