@@ -6,10 +6,10 @@ block content
             div.ui.container 
                 div.ui.simple.dropdown.item Visualization Type 
                     i.dropdown.icon 
-                    div.menu
-                        a.item(data-twill-viztype="pack") Circle Pack
-                        a.item(data-twill-viztype="sunburst") Sunburst
-                        a.item(data-twill-viztype="timeline") Timeline
+                    select.menu
+                        option(value="pack") Circle Pack
+                        option(value="sunburst") Sunburst
+                        option(value="timeline") Timeline
         div.ui.bottom.attached.basic.segment 
             div#viz.ui.twelve.wide.column 
             div#sidebar.four.wide.column 
