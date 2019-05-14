@@ -6,11 +6,12 @@ block content
             div.ui.container 
                 div.ui.simple.item 
                     div.ui.buttons 
-                        button.active.button(data-twill-viztype="pack") Circle Pack
-                        button.button(data-twill-viztype="sunburst") Sunburst
-                        button.button(data-twill-viztype="timeline") Timeline
+                        button.ui.active.button(data-twill-viztype="pack") Circle Pack
+                        button.ui.button(data-twill-viztype="sunburst") Sunburst
+                        button.ui.button(data-twill-viztype="timeline") Timeline
         div.ui.bottom.attached.basic.segment 
             div#viz.ui.twelve.wide.column 
+                svg
             div#sidebar.four.wide.column 
                 div.ui.basic.segment 
                     div#roster 

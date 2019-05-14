@@ -629,8 +629,8 @@ $(document).ready(function() {
             
             $('.dimmer').dimmer('hide');
 
-            loadVizPack(discussions, roster);
             loadRoster(roster);
+            loadVizPack(discussions, roster);
             getBasicStats(discussions);
             
             window.discussions = discussions;
