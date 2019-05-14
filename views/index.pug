@@ -3,13 +3,11 @@ extends layout
 block content
     div.ui.container 
         div.ui.attached.stackable.menu 
-            div.ui.container 
-                div.ui.simple.dropdown.item Visualization Type 
-                    i.dropdown.icon 
-                    select.menu
-                        option(value="pack") Circle Pack
-                        option(value="sunburst") Sunburst
-                        option(value="timeline") Timeline
+            div.simple.item 
+                select.dropdown.menu
+                    option(value="pack") Circle Pack
+                    option(value="sunburst") Sunburst
+                    option(data-twill-viztype="timeline") Timeline
         div.ui.bottom.attached.basic.segment 
             div#viz.ui.twelve.wide.column 
             div#sidebar.four.wide.column 
