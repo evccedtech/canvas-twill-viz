@@ -4,13 +4,14 @@ block content
     div.ui.segment 
         div.ui.grid 
             div#menu.row 
-                div#viztype.eight.wide.column 
+                div#viztype.six.wide.column 
                     h2.ui.tiny.header Visualization Type
                     div.ui.fluid.basic.buttons 
                         button.ui.active.mini.button(data-twill-viztype="pack") Circle Pack
-                        button.ui.basic.button(data-twill-viztype="sunburst") Sunburst
-                        button.ui.basic.button(data-twill-viztype="timeline") Timeline
-                div#roster.eight.wide.column
+                        button.ui.basic.mini.button(data-twill-viztype="sunburst") Sunburst
+                        button.ui.basic.mini.button(data-twill-viztype="timeline") Timeline
+                div.four.wide.column.
+                div#roster.six.wide.column
                     h2.ui.tiny.header Participant Selection
                     form.ui.form 
                         select 

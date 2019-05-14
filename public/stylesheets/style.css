@@ -1,11 +1,8 @@
 @import url('/stylesheets/semantic.min.css');
 
 #wrapper {
+    margin-top: 1em !important;
     min-height: 400px;
-}
-
-#wrapper > .ui.grid {
-    margin-top: 1em;
 }
 
 #info table {
