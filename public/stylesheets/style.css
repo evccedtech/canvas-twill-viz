@@ -4,34 +4,8 @@
     min-height: 400px;
 }
 
-#roster .item {
-    color: #7c7c7c;
-    cursor: pointer;
-}
-
-#roster .item > .label {
-    background: #00bfff;
-    border-radius: 50%;
-    display: inline-block;
-    height: 10px;
-    margin-left: 6px;
-    position: relative;
-    top: 1px;
-    visibility: hidden;
-    width: 10px;
-}
-
-#roster .item.active,
-#roster .item:hover {
-    color: #333;
-}
-
-#roster .item.active > .label {
-    visibility: visible;
-}
-
-#info > div p {
-    color: #7c7c7c;
+#roster {
+    margin-top: 2em;
 }
 
 #viz .axis text {

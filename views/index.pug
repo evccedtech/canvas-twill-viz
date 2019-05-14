@@ -1,48 +1,48 @@
 extends layout
 
 block content
-    div.ui.grid
-        div.ui.segment 
-            div.ui.grid 
-                div.row 
-                    div#viz.twelve.wide.column 
-                        svg
-                    div#menu.four.wide.column
-                        div#viztype
-                            div.ui.vertical.fluid.buttons 
-                                button.ui.active.button(data-twill-viztype="pack") Circle Pack
-                                button.ui.button(data-twill-viztype="sunburst") Sunburst
-                                button.ui.button(data-twill-viztype="timeline") Timeline
-                        div#roster
-                            h2.ui.tiny.header Participant Selection 
-                                form.ui.form 
-                                    select 
-                                        option(value="") No Selection
-                div.row 
-                    div#info.sixteen.wide.column 
-                        h2.ui.tiny.header Statistics 
-                        table.ui.small.basic.table 
-                            thead 
-                                th 
-                                th Course Total 
-                                th Current Selection 
-                            tbody 
-                                tr 
-                                    td Topics
-                                    td 
-                                    td 
-                                tr 
-                                    td Posts 
-                                    td 
-                                    td 
-                                tr 
-                                    td Total Words 
-                                    td 
-                                    td 
-                                tr 
-                                    td Avg. Words / Post 
-                                    td 
-                                    td 
+    div.ui.segment 
+        div.ui.grid 
+            div.row 
+                div#viz.twelve.wide.column 
+                    svg
+                div#menu.four.wide.column
+                    div#viztype
+                        h2.ui.tiny.header Visualization Type
+                        div.ui.vertical.fluid.buttons 
+                            button.ui.active.button(data-twill-viztype="pack") Circle Pack
+                            button.ui.button(data-twill-viztype="sunburst") Sunburst
+                            button.ui.button(data-twill-viztype="timeline") Timeline
+                    div#roster
+                        h2.ui.tiny.header Participant Selection 
+                            form.ui.form 
+                                select 
+                                    option(value="") No Selection
+            div.row 
+                div#info.sixteen.wide.column 
+                    h2.ui.tiny.header Statistics 
+                    table.ui.small.basic.table 
+                        thead 
+                            th 
+                            th Course Total 
+                            th Current Selection 
+                        tbody 
+                            tr 
+                                td Topics
+                                td 
+                                td 
+                            tr 
+                                td Posts 
+                                td 
+                                td 
+                            tr 
+                                td Total Words 
+                                td 
+                                td 
+                            tr 
+                                td Avg. Words / Post 
+                                td 
+                                td 
     div#loader
       div.ui.inverted.page.dimmer
         div.ui.active.text.loader 
