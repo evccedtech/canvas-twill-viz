@@ -568,8 +568,7 @@ $(document).ready(function() {
 
     $('.dimmer').dimmer('show');
     $('.dropdown').dropdown();
-    
-    $('#wrapper').on('click', '.button:not(.active)', function(e) {
+    $('#wrapper').on('click', '.menu .button:not(.active)', function(e) {
         
         var type = $(e.currentTarget).data('twill-viztype');
         
