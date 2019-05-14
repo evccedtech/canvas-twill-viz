@@ -10,8 +10,40 @@ block content
                         a.item(data-twill-viztype="pack") Circle Pack
                         a.item(data-twill-viztype="sunburst") Sunburst
                         a.item(data-twill-viztype="timeline") Timeline
-        div.ui.bottom.attached.basic.segment T
-
+        div.ui.bottom.attached.basic.segment 
+            div#viz.ui.twelve.wide.column 
+            div#sidebar.four.wide.column 
+                div.ui.basic.segment 
+                    div#roster 
+                        h2.ui.tiny.header Participants 
+                        form.ui.form 
+                            select 
+                                option(value="---") ---
+                div.ui.basic.segment 
+                    div#info 
+                        h2.ui.tiny.header Statistics 
+                        table.ui.small.basic.table 
+                            thead 
+                                th 
+                                th Course Total 
+                                th Current Selection 
+                            tbody 
+                                tr 
+                                    td Topics
+                                    td 
+                                    td 
+                                tr 
+                                    td Posts 
+                                    td 
+                                    td 
+                                tr 
+                                    td Total Words 
+                                    td 
+                                    td 
+                                tr 
+                                    td Avg. Words / Post 
+                                    td 
+                                    td 
 //-  div.row
 //-    div#viz.ui.ten.wide.column
 //-      svg
