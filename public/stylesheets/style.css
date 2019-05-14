@@ -8,14 +8,6 @@
     margin-top: 1em;
 }
 
-#roster {
-    margin-top: 2em;
-}
-
-#viz svg {
-    margin: 0 auto;
-}
-
 #viz .axis text {
     fill: #666;
 }
