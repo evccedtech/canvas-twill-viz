@@ -567,12 +567,7 @@ $(document).ready(function() {
     var deferreds = [];
 
     $('.dimmer').dimmer('show');
-    $('.dropdown').dropdown({
-        action: function(text, value, el) {
-            console.log(value);
-            toggleViz.call(null, value, discussions, roster);
-        }
-    });
+    $('.dropdown').dropdown();
     
     $('#wrapper').on('click', '.button:not(.active)', function(e) {
         
