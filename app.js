@@ -151,7 +151,7 @@ app.get('/login', async function(req, res, next) {
     // Find record with current user's Canvas ID retrieved through LTI launch
     userQuery.exec(function(err, users) {
         
-        if (users.length) > 0 {
+        if (users.length) > 0) {
             currentUser = users[0];
             
             console.log('User record exists:');
