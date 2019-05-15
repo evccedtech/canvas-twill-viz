@@ -4,8 +4,30 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const lti = require('ims-lti');
+const mongoose = require('mongoose');
 const path = require('path');
 const simpleOauth2 = require('simple-oauth2');
+
+// MongoDB setup
+const mongoDB = process.env.MONGO_URL;
+
+mongoose.connect(mongoDB, { useNewUrlParser: true })
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error.'));
+
+const mongoSchema = mongoose.Schema;
+
+const UserSchema = new Schema({
+    user_id: { type: Number, required: true},
+    access_token: { type: String, required: true },
+    refresh_token: { type: String, required: true },
+    expires_at: {type: Number, required: true }
+});
+
+const User = mongoose.model('User', UserSchema);
+
 
 // Temporary storage for LTI info
 let ltiDetails = null;
@@ -116,11 +138,20 @@ app.get('/login', async function(req, res, next) {
     console.log('Login route ...', Date.now());
     
     console.log(req.session);
+
+    let userQuery = User.find({ user_id : ltiDetails.user_id });
     
     // No successful LTI launch
     if (ltiDetails === null) {
         res.status(403).send('ERROR: This page can only be accessed following a valid LTI launch.');
     }
+    
+    // Test for user
+    // Find record with current user's Canvas ID retrieved through LTI launch
+    userQuery.exec(function(err, users) {
+        console.log(users);
+    });
+    
 
     // First session -- session cookie isn't populated
     if (!req.session.populated) {
