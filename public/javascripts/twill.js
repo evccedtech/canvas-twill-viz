@@ -15,19 +15,19 @@ function getEntries(topicId) {
 
 function loadRoster(roster) {
     
-    var $roster = $('#roster select');
+    var $roster = $('#roster .menu');
     
     roster.forEach(function(person) {
-        $roster.append('<option value="' + person.id + '">' + person.sortable_name + '</option>');
+        $roster.append('<div class="item" data-value="' + person.id + '">' + person.sortable_name + '</div>');
     });
-    
+/*    
     $roster.change(function(e) {
         
         var id = $(e.currentTarget).val();
         
         selectRosterName(id);
     });
-    
+*/    
 }
 
 function resetSelectionStats() {
@@ -567,7 +567,12 @@ $(document).ready(function() {
     var deferreds = [];
 
     $('.dimmer').dimmer('show');
-    $('.dropdown').dropdown();
+    $('.dropdown').dropdown({
+        action: 'activate',
+        onChange: function(text, value) {
+            console.log(value);
+        }
+    });
     $('#wrapper').on('click', '.button:not(.active)', function(e) {
         
         var type = $(e.currentTarget).data('twill-viztype');

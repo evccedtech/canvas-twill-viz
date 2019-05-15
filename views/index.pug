@@ -11,16 +11,15 @@ block content
                                 button.ui.active.button(data-twill-viztype="pack") Circle Pack
                                 button.ui.basic.button(data-twill-viztype="sunburst") Sunburst
                                 button.ui.basic.button(data-twill-viztype="timeline") Timeline
-                        div#roster.eight.wide.column 
-                            form.ui.form 
-                                select 
-                                    option(value="") No Selection
+                        div#roster.ui.selection.dropdown
+                            input(type="hidden" name="participant")
+                            i.dropdown.icon 
+                            div.menu
                     div.row 
                         div#viz.sixteen.wide.column
                             svg
             div.six.wide.column 
                 div#info 
-                    h2.ui.tiny.header Statistics 
                     table.ui.small.basic.table 
                         thead 
                             th 
