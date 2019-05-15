@@ -1,5 +1,4 @@
 const html2text = require('html-to-text');
-const ltiResizer = require('lti-iframe-autoresizer');
 const rp = require('request-promise');
 
 // Canvas API pagination regex
@@ -48,18 +47,6 @@ exports.getTopicList = function(req, res) {
         });
     
 };
-
-// Resize frame
-exports.resizeFrame = function(req, res) {
-    
-    console.log('Resizing iframe');
-    
-    if (req.body.resize === true) {
-        ltiResizer.init();
-        res.status(200).send('OK');
-    }
-    
-}
 
 // From https://stackoverflow.com/questions/18679576/counting-words-in-string
 function countWords(str) {

@@ -628,10 +628,6 @@ $(document).ready(function() {
         // Initialize viz only once all entry calls are complete
         $.when.apply(null, deferreds).done(function() {
 
-            $.post('https://canvas-twill-viz.herokuapp.com/twill/resize', {resize: true}, function(response) {
-                console.log('successful resize request');
-            });
-
             loadRoster(roster);
             loadVizPack(discussions, roster);
             getBasicStats(discussions);
