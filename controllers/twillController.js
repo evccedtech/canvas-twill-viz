@@ -56,7 +56,7 @@ exports.resizeFrame = function(req, res) {
     
     if (req.body.resize === true) {
         ltiResizer.init();
-        res.status(200).send(;
+        res.status(200).send('OK');
     }
     
 }
