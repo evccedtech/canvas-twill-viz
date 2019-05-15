@@ -14,4 +14,7 @@ router.get('/topicList', twillController.getTopicList);
 /* GET discussion topic entries */
 router.get('/topics/:id', twillController.getEntries);
 
+/* POST resize request */
+router.post('/resize', twillController.resizeFrame);
+
 module.exports = router;

@@ -14,6 +14,7 @@
     "html-to-text": "^5.1.1",
     "http-errors": "~1.6.2",
     "ims-lti": "^3.0.2",
+    "lti-iframe-autoresizer": "^1.1.1",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "request": "^2.88.0",
