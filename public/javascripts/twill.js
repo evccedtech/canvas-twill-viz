@@ -291,7 +291,7 @@ function loadVizTimeline(data, roster) {
     
     var dateExtent,
         dimensions = {
-            height: getVizWidth() * .75,
+            height: getVizWidth() * .5,
             width: getVizWidth()
         },
         g,
