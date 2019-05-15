@@ -20,14 +20,7 @@ function loadRoster(roster) {
     roster.forEach(function(person) {
         $roster.append('<div class="item" data-value="' + person.id + '">' + person.sortable_name + '</div>');
     });
-/*    
-    $roster.change(function(e) {
-        
-        var id = $(e.currentTarget).val();
-        
-        selectRosterName(id);
-    });
-*/    
+
 }
 
 function resetSelectionStats() {
@@ -71,7 +64,7 @@ function selectRosterName(id) {
 }
 
 function resetRosterName() {
-    $("#roster select option[value='---']").prop('selected', true);
+    $('.dropdown').dropdown('restore defaults');
 }
 
 function getAuthorInfo(authorInfo) {
@@ -566,11 +559,10 @@ $(document).ready(function() {
     
     var deferreds = [];
 
-  //  $('.dimmer').dimmer('show');
     $('.dropdown').dropdown({
         action: 'activate',
-        onChange: function(text, value) {
-            console.log(text, value);
+        onChange: function(value, text) {
+            selectRosterName(value);
         }
     });
     $('#wrapper').on('click', '.button:not(.active)', function(e) {
@@ -631,8 +623,6 @@ $(document).ready(function() {
         
         // Initialize viz only once all entry calls are complete
         $.when.apply(null, deferreds).done(function() {
-            
-           // $('.dimmer').dimmer('hide');
 
             loadRoster(roster);
             loadVizPack(discussions, roster);
