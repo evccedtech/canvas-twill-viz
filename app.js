@@ -136,8 +136,6 @@ app.post('/lti_launch', function(req, res, next) {
 app.get('/login', async function(req, res, next) {
     
     console.log('Login route ...', Date.now());
-    
-    console.log(req.session);
 
     let userQuery = User.find({ user_id : ltiDetails.user_id });
     let currentUser;
@@ -151,14 +149,26 @@ app.get('/login', async function(req, res, next) {
     // Find record with current user's Canvas ID retrieved through LTI launch
     userQuery.exec(function(err, users) {
         
+        // If user exists
         if (users.length > 0) {
             currentUser = users[0];
             
             console.log('User record exists:');
-            console.log(currentUser);
-            res.end();
+            console.log(currentUser.expires_at);
+            console.log(Date(currentUser.expires_at));
             
-        } else {
+            let refreshToken = currentUser.refresh_token;
+            let tokenObject = {
+                access_token: currentUser.access_token,
+                refresh_token: refreshToken
+            };
+            let accessToken = await oauth2.accessToken.create(tokenObject);
+
+            res.end();
+        } 
+        
+        // User does not exist so begin initial OAuth flow
+        else {
             console.log('No user data; initiating OAuth flow...');
             
             res.redirect('/auth/canvas');
