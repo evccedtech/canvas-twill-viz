@@ -17,7 +17,7 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error.'));
 
-const mongoSchema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
     user_id: { type: Number, required: true},
