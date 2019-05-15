@@ -570,7 +570,7 @@ $(document).ready(function() {
     $('.dropdown').dropdown({
         action: 'activate',
         onChange: function(text, value) {
-            console.log(value);
+            console.log(text, value);
         }
     });
     $('#wrapper').on('click', '.button:not(.active)', function(e) {
