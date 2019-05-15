@@ -146,7 +146,7 @@ function loadVizPack(data, roster) {
     
     var diameter,
         dimensions = {
-            height: getVizWidth() * .5,
+            height: getVizWidth() * .75,
             width: getVizWidth()
         },
         format,
@@ -222,7 +222,7 @@ function loadVizSunburst(data, roster) {
 
     var arc,
         dimensions = {
-            height: getVizWidth() * .5,
+            height: getVizWidth() * .75,
             width: getVizWidth()
         },
         margin = 40,
@@ -298,7 +298,7 @@ function loadVizTimeline(data, roster) {
     
     var dateExtent,
         dimensions = {
-            height: getVizWidth() * .5,
+            height: getVizWidth() * .75,
             width: getVizWidth()
         },
         g,
