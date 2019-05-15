@@ -559,6 +559,10 @@ $(document).ready(function() {
     
     var deferreds = [];
 
+    console.log($(window).height());
+    console.log($('body').height());
+    console.log($('#wrapper').height())
+
     $('.dropdown').dropdown({
         action: 'activate',
         onChange: function(value, text) {
