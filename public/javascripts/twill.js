@@ -566,7 +566,7 @@ $(document).ready(function() {
     
     var deferreds = [];
 
-    $('.dimmer').dimmer('show');
+  //  $('.dimmer').dimmer('show');
     $('.dropdown').dropdown({
         action: 'activate',
         onChange: function(text, value) {
@@ -632,7 +632,7 @@ $(document).ready(function() {
         // Initialize viz only once all entry calls are complete
         $.when.apply(null, deferreds).done(function() {
             
-            $('.dimmer').dimmer('hide');
+           // $('.dimmer').dimmer('hide');
 
             loadRoster(roster);
             loadVizPack(discussions, roster);
