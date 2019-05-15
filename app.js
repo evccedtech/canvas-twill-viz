@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     user_id: { type: Number, required: true},
     access_token: { type: String, required: true },
     refresh_token: { type: String, required: true },
-    expires_at: {type: Number, required: true }
+    expires_at: {type: String, required: true }
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -140,6 +140,7 @@ app.get('/login', async function(req, res, next) {
     console.log(req.session);
 
     let userQuery = User.find({ user_id : ltiDetails.user_id });
+    let currentUser;
     
     // No successful LTI launch
     if (ltiDetails === null) {
@@ -149,9 +150,22 @@ app.get('/login', async function(req, res, next) {
     // Test for user
     // Find record with current user's Canvas ID retrieved through LTI launch
     userQuery.exec(function(err, users) {
-        console.log(users);
+        
+        if (users.length) > 0 {
+            currentUser = users[0];
+            
+            console.log('User record exists:');
+            console.log(currentUser);
+            res.end();
+            
+        } else {
+            console.log('No user data; initiating OAuth flow...');
+            
+            res.redirect('/auth/canvas');
+        }
     });
     
+    /*
 
     // First session -- session cookie isn't populated
     if (!req.session.populated) {
@@ -208,6 +222,7 @@ app.get('/login', async function(req, res, next) {
         }
         
     }
+    */
     
 });
 
@@ -233,15 +248,34 @@ app.get('/auth/canvas/callback', async function(req, res) {
         const result = await oauth2.authorizationCode.getToken({ code });
         const token = oauth2.accessToken.create(result);
         
+        /*
         req.session = {
             access_token: token.token.access_token,
             refresh_token: token.token.refresh_token,
             expires_at: token.token.expires_at
         };
-
-        console.log('Redirecting to login...', Date.now());
+        */
         
-        return res.redirect('/login');
+        let user = new User({
+            user_id: ltiDetails.user_id,
+            access_token: token.token.access_token,
+            refresh_token: token.token.refresh_token,
+            expires_at: token.token.expires_at
+        });
+        
+        user.save(function(err) {
+            
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('New user record saved...');
+                console.log('Redirecting to login...', Date.now());
+                
+                return res.redirect('/login');
+            }
+            
+            
+        });
         
     } catch(err) {
         return res.status(500).send('Authentication failed.');
