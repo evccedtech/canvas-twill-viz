@@ -193,6 +193,7 @@ app.get('/login', async function(req, res, next) {
             
             // Token is current
             else {
+                console.log('Token is current: ', tokenObject.access_token);
                 req.access_token = tokenObject.access_token;
                 res.redirect('/twill');
             }
