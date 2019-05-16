@@ -188,11 +188,6 @@ function loadVizPack(data, roster) {
                 return color(d.depth);
             }
         })
-        .attr('title', function(d) {
-            var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
-            
-            return author.name + '\n' + d.data.message;
-        })
         .on('mouseover', function(d) {
             if (d.parent !== null) {
                 d3.select(this).style('stroke-width', 1);
@@ -203,7 +198,7 @@ function loadVizPack(data, roster) {
         });
 
     node.append('title')
-        .text(function(d, roster) { return getVizMessageText(d); });
+        .text(function(d, roster) { return getVizMessageText(d.data); });
         
     node.selectAll('circle')
         .transition()
