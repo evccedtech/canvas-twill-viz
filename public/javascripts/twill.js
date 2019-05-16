@@ -207,7 +207,14 @@ function loadVizPack(data, roster) {
             console.log(d);
             if (d.data.message && d.data.message.length > 0) {
                 var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
-                return author + '\n' + d.data.message.slice(0,149) + '...';
+                var postedAt;
+
+                if (d.data.created_at) {
+                    postedAt = ' on ' + Date.toLocaleString(d.data.created_at) + ': ';
+                } else {
+                    postedAt = ': ';
+                }
+                return author.short_name + postedAt + '\n' + d.data.message.slice(0,149) + '...';
             }
             return d.data.message;
         });
