@@ -323,6 +323,7 @@ app.get('/auth/canvas/callback', async function(req, res) {
 
 app.use('/twill', function(req, res, next) {
     res.locals.token = myToken;
+    next();
 }, function(req, res, next) {
     console.log('Twill');
     console.log('Token: ', res.locals.token);
