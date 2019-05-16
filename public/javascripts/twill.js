@@ -191,7 +191,7 @@ function loadVizPack(data, roster) {
         .attr('title', function(d) {
             var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
             
-            return author.short_name + '\n' + d.data.message;
+            return author.name + '\n' + d.data.message;
         })
         .on('mouseover', function(d) {
             if (d.parent !== null) {
@@ -208,8 +208,6 @@ function loadVizPack(data, roster) {
             var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
             var date = '';
 
-            console.log(author);
-
             if (d.data.message && d.data.message.length > 0) {
 
                 if (d.data.created_at) {
@@ -219,8 +217,8 @@ function loadVizPack(data, roster) {
                     date = ':';
                 }
 
-                if (author) {
-                    return author.short_name + date + '\n' + d.data.message.slice(0,149) + '...';
+                if (author !== 'Unknown User') {
+                    return author.name + date + '\n' + d.data.message.slice(0,149) + '...';
                 } else {
                     return d.data.message.slice(0,149) + '...';
                 }
