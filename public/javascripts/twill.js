@@ -212,8 +212,8 @@ function loadVizPack(data, roster) {
             if (d.data.message && d.data.message.length > 0) {
 
                 if (d.data.created_at) {
-                    date = new Date.toLocaleString(d.data.created_at);
-                    date = ' on ' + date + ':';
+                    date = new Date(d.data.created_at);
+                    date = ' on ' + date.toLocaleString() + ':';
                 } else {
                     date = ':';
                 }
