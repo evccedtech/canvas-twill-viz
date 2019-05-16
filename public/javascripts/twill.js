@@ -204,10 +204,11 @@ function loadVizPack(data, roster) {
 
     node.append('title')
         .text(function(d) {
-            console.log(d);
 
             var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
             var date = '';
+
+            console.log(auther);
 
             if (d.data.message && d.data.message.length > 0) {
 
