@@ -206,7 +206,8 @@ function loadVizPack(data, roster) {
         .text(function(d) {
             console.log(d);
             if (d.data.message && d.data.message.length > 0) {
-                return d.data.message.slice(140) + '...';
+                var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
+                return author + '\n' + d.data.message.slice(0,149) + '...';
             }
             return d.data.message;
         });
