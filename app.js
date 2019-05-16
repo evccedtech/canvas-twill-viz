@@ -139,6 +139,7 @@ app.get('/login', async function(req, res, next) {
 
     let userQuery = User.find({ user_id : ltiDetails.user_id });
     let currentUser;
+    let _id;
     
     // No successful LTI launch
     if (ltiDetails === null) {
@@ -153,16 +154,48 @@ app.get('/login', async function(req, res, next) {
         if (users.length > 0) {
             currentUser = users[0];
             
-            console.log('User record exists:');
-            console.log(currentUser.expires_at);
-            console.log(Date(currentUser.expires_at));
-            
             let refreshToken = currentUser.refresh_token;
             let tokenObject = {
                 access_token: currentUser.access_token,
                 refresh_token: refreshToken
             };
             let accessToken = await oauth2.accessToken.create(tokenObject);
+            let expiry = new Date(currentUser.expires_at);
+            let rightNow = new Date();
+
+            _id = currentUser._id;
+
+            // Token has expired and needs to be refreshed
+            if (accessToken.expired() || expiry.valueOf() - rightNow.valueOf() <= 360000) {
+
+                console.log('Access token is expired; refreshing now...');
+
+                try {
+                    accessToken = await accessToken.refresh();
+
+                    User.updateOne({_id : _id}, {
+                        access_token: accessToken.token.access_token,
+                        expires_at: accessToken.token.expires_at
+                    }, function(err, result) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            req.access_token = accessToken.token.access_token;
+                            res.redirect('/twill');
+                        }
+                    });
+
+                } catch(err) {
+                    console.log(err);
+                }
+
+            } 
+            
+            // Token is current
+            else {
+                req.access_token = tokenObject.access_token;
+                res.redirect('/twill');
+            }
 
             res.end();
         } 
@@ -294,6 +327,7 @@ app.get('/auth/canvas/callback', async function(req, res) {
 });
 
 app.use('/twill', function(req, res, next) {
+    console.log('Twill');
     req.course_id = ltiDetails.course_id;
     req.canvas_instance = ltiDetails.canvas_instance
     next();

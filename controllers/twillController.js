@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 exports.getRoster = function(req, res) {
     
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/users';
-    var token = req.session.access_token;
+    var token = req.access_token;
     
     getRoster(token, uri, [])
         .then(function(response) {
@@ -26,7 +26,7 @@ exports.getRoster = function(req, res) {
 exports.getEntries = function(req, res) {
     
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/discussion_topics/' + req.params.id + '/view';
-    var token = req.session.access_token;
+    var token = req.access_token;
     
     getEntries(token, uri, [])
         .then(function(response) {
@@ -39,7 +39,7 @@ exports.getEntries = function(req, res) {
 exports.getTopicList = function(req, res) {
     
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/discussion_topics';
-    var token = req.session.access_token;
+    var token = req.access_token;
     
     getTopicList(token, uri, [])
         .then(function(response) {
