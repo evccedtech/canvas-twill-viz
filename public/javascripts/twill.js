@@ -201,6 +201,12 @@ function loadVizPack(data, roster) {
         .on('mouseout', function(d) {
             d3.select(this).style('stroke-width', 0);
         });
+
+    node.append('title')
+        .text(function(d) {
+            console.log(d);
+            return d.message;
+        });
         
     node.selectAll('circle')
         .transition()

@@ -203,65 +203,6 @@ app.get('/login', async function(req, res, next) {
         }
     });
     
-    /*
-
-    // First session -- session cookie isn't populated
-    if (!req.session.populated) {
-        
-        console.log('No session data; initiating OAuth flow.');
-        
-        // Begin OAuth flow
-        res.redirect('/auth/canvas');
-        
-    }
-    
-    // Not the first session
-    else {
-        
-        console.log('Session data exists; checking token status.');
-        console.log('Session expires at ', req.sessionOptions.expires);
-        
-        let refreshToken = req.session.refresh_token;
-        let tokenObject = {
-            access_token: req.session.access_token,
-            refresh_token: refreshToken
-        };
-        let accessToken = await oauth2.accessToken.create(tokenObject);
-        let rightNow = new Date();
-        let expiry = new Date(req.session.expires_at);
-        
-        console.log((expiry.valueOf() - rightNow.valueOf()) / 1000 / 60 + ' minutes until token expires.');
-        
-        // Token has expired
-        if (accessToken.expired() || expiry.valueOf() - rightNow.valueOf() <= 360000) {
-            
-            console.log('Token is expired; refreshing...');
-            
-            try {
-                accessToken = await accessToken.refresh();
-                
-                req.session = {
-                    access_token: accessToken.token.access_token,
-                    refresh_token: refreshToken,
-                    expires_at: accessToken.token.expires_at
-                };
-                
-                console.log('Authentication refreshed.');
-                
-                res.redirect('/twill');
-            } catch(err) {
-                console.log(err);
-            }
-        } 
-        
-        // Token is current
-        else {
-            res.redirect('/twill');
-        }
-        
-    }
-    */
-    
 });
 
 // Initial redirect for OAuth flow
@@ -285,14 +226,6 @@ app.get('/auth/canvas/callback', async function(req, res) {
     try {
         const result = await oauth2.authorizationCode.getToken({ code });
         const token = oauth2.accessToken.create(result);
-        
-        /*
-        req.session = {
-            access_token: token.token.access_token,
-            refresh_token: token.token.refresh_token,
-            expires_at: token.token.expires_at
-        };
-        */
         
         let user = new User({
             user_id: ltiDetails.user_id,
