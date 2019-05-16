@@ -536,7 +536,7 @@ function getSelectionStats(selection) {
         
 }
 
-function getVizText(d, roster) {
+function getVizMessageText(d, roster) {
     
     var author = getAuthorInfo(_.where(roster, { id: d.user_id }));
     var date = '';
