@@ -628,6 +628,8 @@ $(document).ready(function() {
         // Initialize viz only once all entry calls are complete
         $.when.apply(null, deferreds).done(function() {
 
+            $('.loader').removeClass('active').addClass('disabled');
+
             loadRoster(roster);
             loadVizPack(discussions, roster);
             getBasicStats(discussions);
