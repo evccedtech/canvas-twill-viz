@@ -13,9 +13,7 @@ exports.index = function(req, res) {
 exports.getRoster = function(req, res) {
     
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/users';
-    var token = req.access_token;
-    
-    console.log('getRoster', token);
+    var token = res.locals.token;
 
     getRoster(token, uri, [])
         .then(function(response) {

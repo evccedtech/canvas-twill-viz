@@ -1,5 +1,4 @@
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
@@ -27,7 +26,6 @@ const UserSchema = new Schema({
 });
 
 const User = mongoose.model('User', UserSchema);
-
 
 // Temporary storage for LTI info
 let ltiDetails = null;
@@ -66,14 +64,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Session cookie for LTI launch info
-
-app.use(cookieSession({
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 180), // 180 days from now
-    name: 'session',
-    keys: ['mySecretKey1']
-}));
 
 // LTI launch
 app.post('/lti_launch', function(req, res, next) {
@@ -180,7 +170,8 @@ app.get('/login', async function(req, res, next) {
                         if (err) {
                             console.log(err);
                         } else {
-                            req.access_token = accessToken.token.access_token;
+                            console.log('Token reset: ', accessToken.token.access_token);
+                            req.session.token = accessToken.token.access_token;
                             res.redirect('/twill');
                         }
                     });
@@ -194,7 +185,7 @@ app.get('/login', async function(req, res, next) {
             // Token is current
             else {
                 console.log('Token is current: ', tokenObject.access_token);
-                req.access_token = tokenObject.access_token;
+                req.session.token = tokenObject.access_token;
                 res.redirect('/twill');
             }
 
@@ -328,10 +319,13 @@ app.get('/auth/canvas/callback', async function(req, res) {
 });
 
 app.use('/twill', function(req, res, next) {
+    res.locals.token = req.session.token;
+}, function(req, res, next) {
     console.log('Twill');
-    console.log('Access token', req.access_token);
+    console.log('Token: ', res.locals.token);
     req.course_id = ltiDetails.course_id;
     req.canvas_instance = ltiDetails.canvas_instance
+
     next();
 }, twillRouter);
 
