@@ -30,6 +30,9 @@ const User = mongoose.model('User', UserSchema);
 // Temporary storage for LTI info
 let ltiDetails = null;
 
+// Temporary storage for token
+let myToken;
+
 // OAuth2 setup
 const oauth2 = simpleOauth2.create({
     client: {
@@ -171,7 +174,7 @@ app.get('/login', async function(req, res, next) {
                             console.log(err);
                         } else {
                             console.log('Token reset: ', accessToken.token.access_token);
-                            req.session.token = accessToken.token.access_token;
+                            myToken = accessToken.token.access_token;
                             res.redirect('/twill');
                         }
                     });
@@ -185,7 +188,7 @@ app.get('/login', async function(req, res, next) {
             // Token is current
             else {
                 console.log('Token is current: ', tokenObject.access_token);
-                req.session.token = tokenObject.access_token;
+                myToken = tokenObject.access_token;
                 res.redirect('/twill');
             }
 
@@ -319,7 +322,7 @@ app.get('/auth/canvas/callback', async function(req, res) {
 });
 
 app.use('/twill', function(req, res, next) {
-    res.locals.token = req.session.token;
+    res.locals.token = myToken;
 }, function(req, res, next) {
     console.log('Twill');
     console.log('Token: ', res.locals.token);
