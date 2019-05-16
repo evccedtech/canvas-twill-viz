@@ -14,8 +14,11 @@ body {
 
 #wrapper {
     box-sizing: border-box;
+    max-height: 100%;
+}
+
+#wrapper > .segment {
     margin-top: 1em !important;
-    height: 100%;
 }
 
 #info table {
