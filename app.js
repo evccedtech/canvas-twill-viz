@@ -328,6 +328,7 @@ app.get('/auth/canvas/callback', async function(req, res) {
 
 app.use('/twill', function(req, res, next) {
     console.log('Twill');
+    console.log('Access token', req.access_token);
     req.course_id = ltiDetails.course_id;
     req.canvas_instance = ltiDetails.canvas_instance
     next();
