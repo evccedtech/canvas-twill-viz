@@ -15,6 +15,8 @@ exports.getRoster = function(req, res) {
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/users';
     var token = res.locals.token;
 
+    console.log('getRoster ', token);
+
     getRoster(token, uri, [])
         .then(function(response) {
             res.send(response);
@@ -26,7 +28,7 @@ exports.getRoster = function(req, res) {
 exports.getEntries = function(req, res) {
     
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/discussion_topics/' + req.params.id + '/view';
-    var token = req.access_token;
+    var token = res.locals.token;
     
     getEntries(token, uri, [])
         .then(function(response) {
@@ -39,7 +41,7 @@ exports.getEntries = function(req, res) {
 exports.getTopicList = function(req, res) {
     
     var uri = 'https://' + req.canvas_instance + '/api/v1/courses/' + req.course_id + '/discussion_topics';
-    var token = req.access_token;
+    var token = res.locals.token;
     
     getTopicList(token, uri, [])
         .then(function(response) {
