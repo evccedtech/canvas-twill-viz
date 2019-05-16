@@ -13,6 +13,7 @@ body {
 }
 
 #wrapper {
+    box-sizing: border-box;
     margin-top: 1em !important;
     height: 100%;
 }
