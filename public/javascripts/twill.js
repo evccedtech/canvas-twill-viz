@@ -205,7 +205,10 @@ function loadVizPack(data, roster) {
     node.append('title')
         .text(function(d) {
             console.log(d);
-            return d.message;
+            if (d.data.message && d.data.message.length > 0) {
+                return d.data.message.slice(140) + '...';
+            }
+            return d.data.message;
         });
         
     node.selectAll('circle')
