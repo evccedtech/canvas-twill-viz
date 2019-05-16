@@ -76,7 +76,7 @@ function getAuthorInfo(authorInfo) {
         author.name = authorInfo[0].short_name;
     } else {
         author.id = 0;
-        author.name = 'Unknown User';
+        author.name = '';
     }
     
     return author;
@@ -203,30 +203,7 @@ function loadVizPack(data, roster) {
         });
 
     node.append('title')
-        .text(function(d) {
-
-            var author = getAuthorInfo(_.where(roster, {id: d.data.user_id}));
-            var date = '';
-
-            if (d.data.message && d.data.message.length > 0) {
-
-                if (d.data.created_at) {
-                    date = new Date(d.data.created_at);
-                    date = ' on ' + date.toLocaleString() + ':';
-                } else {
-                    date = ':';
-                }
-
-                if (author !== 'Unknown User') {
-                    return author.name + date + '\n' + d.data.message.slice(0,149) + '...';
-                } else {
-                    return d.data.message.slice(0,149) + '...';
-                }
-                
-            } else {
-                return '';
-            }
-        });
+        .text(function(d, roster) { return getVizMessageText(d); });
         
     node.selectAll('circle')
         .transition()
@@ -305,6 +282,9 @@ function loadVizSunburst(data, roster) {
             d3.select(this).style('stroke-width', 0);
         });
         
+    path.append('title')
+        .text(function(d, roster) { return getVizMessageText(d.data); });
+        
     path.selectAll('path')
         .transition()
         .duration(250)
@@ -379,7 +359,10 @@ function loadVizTimeline(data, roster) {
         })
         .on('mouseout', function(d) {
             d3.select(this).style('stroke-width', 0);
-        });;
+        });
+        
+    nodes.append('title')
+        .text(function(d, roster) { return getVizMessageText(d); });
         
     nodes.selectAll('circle')
         .transition()
@@ -551,6 +534,32 @@ function getSelectionStats(selection) {
         $info.find('tr:eq(3) > td:eq(2)').text(format(Math.round(numWords / numPosts)));   
     }
         
+}
+
+function getVizText(d, roster) {
+    
+    var author = getAuthorInfo(_.where(roster, { id: d.user_id }));
+    var date = '';
+    
+    if (d.message && d.message.length > 0) {
+        
+        if (d.created_at) {
+            date = new Date(d.created_at);
+            date = ' on ' + date.toLocaleString() + ':';
+        } else {
+            date = ':';
+        }
+        
+        if (author !== '') {
+            return author.name + date + '\n\n' + d.message.slice(0,149) + '...';
+        } else {
+            return d.message.slice(0,149) + '...';
+        }
+        
+    } else {
+        return '';
+    }
+    
 }
 
 function toggleViz(type, discussions, roster) {
