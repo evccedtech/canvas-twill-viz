@@ -151,7 +151,7 @@ function loadVizPack(data, roster) {
         selectionId = $('input[name="participant"]').attr('value'),
         svg = d3.select('#viz svg');
     
-    console.log(selectionId);
+    console.log(typeof selectionId);
 
     svg.selectAll('g').remove();
     
