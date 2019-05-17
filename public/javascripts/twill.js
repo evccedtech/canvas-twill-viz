@@ -188,7 +188,7 @@ function loadVizPack(data, roster) {
         .style('fill', function(d) {
             if (d.parent === null) {
                 return '#fff';
-            } else if (selectionId === d.data.user_id) {
+            } else if (selectionId == d.data.user_id) {
                 return colorActiveSelection;
             } else {
                 return color(d.depth);
@@ -272,7 +272,7 @@ function loadVizSunburst(data, roster) {
         .style('fill', function(d) { 
             if (d.parent === null) {
                 return '#fff';
-            } else if (selectionId === d.data.user_id) {
+            } else if (selectionId == d.data.user_id) {
                 return colorActiveSelection;
             } else {
                 return color(d.depth);
@@ -361,7 +361,7 @@ function loadVizTimeline(data, roster) {
         .attr('data-twill-id', function(d) { return d.user_id; })
         .style('stroke-width', 0)
         .style('fill', function(d) {
-            if (selectionId === d.user_id) {
+            if (selectionId == d.user_id) {
                 return colorActiveSelection;
             } else {
                 return color(4);
