@@ -148,9 +148,11 @@ function loadVizPack(data, roster) {
         node,
         pack,
         root,
-        selectionId = $('input[name="participant"]').val(),
+        selectionId = $('input[name="participant"]').attr('value'),
         svg = d3.select('#viz svg');
-        
+    
+    console.log(selectionId);
+
     svg.selectAll('g').remove();
     
     svg.attr('width', dimensions.width)
@@ -226,9 +228,11 @@ function loadVizSunburst(data, roster) {
         path,
         radius = Math.min(dimensions.width - margin, dimensions.height - margin) / 2,
         root,
-        selectionId = $('input[name="participant"]').val(),
+        selectionId = $('input[name="participant"]').attr('value'),
         svg = d3.select('#viz svg');
     
+    console.log(selectionId);
+
     svg.selectAll('g').remove();
     
     svg.attr('width', dimensions.width - margin)
@@ -311,12 +315,14 @@ function loadVizTimeline(data, roster) {
             return b.message_length - a.message_length;
         }),
         radius,
-        selectionId = $('input[name="participant"]').val(),
+        selectionId = $('input[name="participant"]').attr('value'),
         svg = d3.select('#viz svg'),
         threads = data.children,
         timeFormat = d3.timeFormat('%I %p'),
         x,
         y;
+
+    console.log(selectionId);
         
     dateExtent = d3.extent(_.pluck(posts, 'created_at'));
     
@@ -530,8 +536,6 @@ function getSelectionStats(selection) {
         numPosts = data.length,
         numWords = sumMessageLength(data);
     
-    console.log(data);
-    
     $info.find('tr:eq(0) > td:eq(2)').text('-');
     $info.find('tr:eq(1) > td:eq(2)').text(numPosts);
     $info.find('tr:eq(2) > td:eq(2)').text(format(numWords));
@@ -548,8 +552,6 @@ function getVizMessageText(d, roster) {
     
     var author = getAuthorInfo(_.where(roster, { id: d.user_id }));
     var date = '';
-    
-    console.log(author, d.user_id, _.where(roster, { id: d.user_id }));
 
     if (d.message && d.message.length > 0) {
         
@@ -603,10 +605,6 @@ $(document).ready(function() {
     var roster;
     
     var deferreds = [];
-
-    console.log($(window).height());
-    console.log($('body').height());
-    console.log($('#wrapper').height())
 
     $('.dropdown').dropdown({
         action: 'activate',
