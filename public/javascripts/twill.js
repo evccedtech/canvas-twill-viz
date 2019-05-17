@@ -1,4 +1,5 @@
 const color = d3.scaleSequential(d3.interpolateReds).domain([0,8]);
+const colorActiveSelection = "#00bfff";
 const format = d3.format(",");
 
 function getRoster() {
@@ -49,7 +50,7 @@ function selectRosterName(id) {
                     if (d.depth) { 
                         return color(d.depth); 
                     } else {
-                        return color(6);
+                        return color(4);
                     }
                 }
             })
@@ -147,6 +148,7 @@ function loadVizPack(data, roster) {
         node,
         pack,
         root,
+        selectionId = $('input[name="participant"]').val(),
         svg = d3.select('#viz svg');
         
     svg.selectAll('g').remove();
@@ -184,6 +186,8 @@ function loadVizPack(data, roster) {
         .style('fill', function(d) {
             if (d.parent === null) {
                 return '#fff';
+            } else if (selectionId === d.data.user_id) {
+                return colorActiveSelection;
             } else {
                 return color(d.depth);
             }
@@ -222,6 +226,7 @@ function loadVizSunburst(data, roster) {
         path,
         radius = Math.min(dimensions.width - margin, dimensions.height - margin) / 2,
         root,
+        selectionId = $('input[name="participant"]').val(),
         svg = d3.select('#viz svg');
     
     svg.selectAll('g').remove();
@@ -263,6 +268,8 @@ function loadVizSunburst(data, roster) {
         .style('fill', function(d) { 
             if (d.parent === null) {
                 return '#fff';
+            } else if (selectionId === d.data.user_id) {
+                return colorActiveSelection;
             } else {
                 return color(d.depth);
             }
@@ -304,6 +311,7 @@ function loadVizTimeline(data, roster) {
             return b.message_length - a.message_length;
         }),
         radius,
+        selectionId = $('input[name="participant"]').val(),
         svg = d3.select('#viz svg'),
         threads = data.children,
         timeFormat = d3.timeFormat('%I %p'),
@@ -346,7 +354,13 @@ function loadVizTimeline(data, roster) {
         .attr('r', 0)
         .attr('data-twill-id', function(d) { return d.user_id; })
         .style('stroke-width', 0)
-        .style('fill', color(6))
+        .style('fill', function(d) {
+            if (selectionId === d.user_id) {
+                return colorActiveSelection;
+            } else {
+                return color(4);
+            }
+        })
         .style('opacity', 0)
         .on('mouseover', function(d) {
             d3.select(this).style('opacity', 1);
@@ -561,10 +575,10 @@ function getVizMessageText(d, roster) {
 function toggleViz(type, discussions, roster) {
     
     // Clear active roster selections
-    resetRosterName();
+    // resetRosterName();
     
     // Reset selection for statistics
-    resetSelectionStats();
+    // resetSelectionStats();
 
     switch(type) {
         case 'pack':
