@@ -76,7 +76,7 @@ function getAuthorInfo(authorInfo) {
         author.name = authorInfo[0].short_name;
     } else {
         author.id = 0;
-        author.name = '';
+        author.name = '[Unknown]';
     }
     
     return author;
@@ -547,7 +547,7 @@ function getVizMessageText(d, roster) {
             date = ':';
         }
         
-        if (author !== '') {
+        if (author !== '[Unknown]') {
             return author.name + date + '\n\n' + d.message.slice(0,149) + '...';
         } else {
             return d.message.slice(0,149) + '...';
