@@ -148,10 +148,8 @@ function loadVizPack(data, roster) {
         node,
         pack,
         root,
-        selectionId = $('input[name="participant"]').attr('value'),
+        selectionId = $('input[name="participant"]').attr('value') || 0,
         svg = d3.select('#viz svg');
-    
-    console.log(typeof selectionId);
 
     svg.selectAll('g').remove();
     
@@ -188,7 +186,7 @@ function loadVizPack(data, roster) {
         .style('fill', function(d) {
             if (d.parent === null) {
                 return '#fff';
-            } else if (selectionId == d.data.user_id) {
+            } else if (parseInt(selectionId) === d.data.user_id) {
                 return colorActiveSelection;
             } else {
                 return color(d.depth);
@@ -228,10 +226,8 @@ function loadVizSunburst(data, roster) {
         path,
         radius = Math.min(dimensions.width - margin, dimensions.height - margin) / 2,
         root,
-        selectionId = $('input[name="participant"]').attr('value'),
+        selectionId = $('input[name="participant"]').attr('value') || 0,
         svg = d3.select('#viz svg');
-    
-    console.log(selectionId);
 
     svg.selectAll('g').remove();
     
@@ -272,7 +268,7 @@ function loadVizSunburst(data, roster) {
         .style('fill', function(d) { 
             if (d.parent === null) {
                 return '#fff';
-            } else if (selectionId == d.data.user_id) {
+            } else if (parseInt(selectionId) === d.data.user_id) {
                 return colorActiveSelection;
             } else {
                 return color(d.depth);
@@ -315,14 +311,12 @@ function loadVizTimeline(data, roster) {
             return b.message_length - a.message_length;
         }),
         radius,
-        selectionId = $('input[name="participant"]').attr('value'),
+        selectionId = $('input[name="participant"]').attr('value') || 0,
         svg = d3.select('#viz svg'),
         threads = data.children,
         timeFormat = d3.timeFormat('%I %p'),
         x,
         y;
-
-    console.log(selectionId);
         
     dateExtent = d3.extent(_.pluck(posts, 'created_at'));
     
@@ -361,7 +355,7 @@ function loadVizTimeline(data, roster) {
         .attr('data-twill-id', function(d) { return d.user_id; })
         .style('stroke-width', 0)
         .style('fill', function(d) {
-            if (selectionId == d.user_id) {
+            if (parseInt(selectionId) === d.user_id) {
                 return colorActiveSelection;
             } else {
                 return color(4);
