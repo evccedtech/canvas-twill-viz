@@ -345,15 +345,14 @@ function loadVizTimeline(data, roster) {
         .attr('class', 'node')
         .attr('r', 0)
         .attr('data-twill-id', function(d) { return d.user_id; })
-        .style('stroke', color(4))
         .style('stroke-width', 0)
-        .style('fill', color(2))
+        .style('fill', color(6))
         .style('opacity', 0)
         .on('mouseover', function(d) {
-            d3.select(this).style('stroke-width', 1);
+            d3.select(this).style('opacity', 1);
         })
         .on('mouseout', function(d) {
-            d3.select(this).style('stroke-width', 0);
+            d3.select(this).style('opacity', .5);
         });
         
     nodes.append('title')
@@ -364,7 +363,7 @@ function loadVizTimeline(data, roster) {
         .duration(250)
         .delay(function(d) { return x(new Date(d.created_at)); })
         .attr('r', function(d) { return radius(d.message_length); })
-        .style('opacity', 1);
+        .style('opacity', .5);
         
     g.append('g')
         .attr('class', 'axis x')
