@@ -536,6 +536,8 @@ function getVizMessageText(d, roster) {
     var author = getAuthorInfo(_.where(roster, { id: d.user_id }));
     var date = '';
     
+    console.log(author, d.user_id, _.where(roster, { id: d.user_id }));
+
     if (d.message && d.message.length > 0) {
         
         if (d.created_at) {
