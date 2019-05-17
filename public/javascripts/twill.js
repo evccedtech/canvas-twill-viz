@@ -49,7 +49,7 @@ function selectRosterName(id) {
                     if (d.depth) { 
                         return color(d.depth); 
                     } else {
-                        return color(2);
+                        return color(6);
                     }
                 }
             })
