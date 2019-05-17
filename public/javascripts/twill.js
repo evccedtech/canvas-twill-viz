@@ -198,7 +198,7 @@ function loadVizPack(data, roster) {
         });
 
     node.append('title')
-        .text(function(d, roster) { return getVizMessageText(d.data, roster); });
+        .text(function(d) { return getVizMessageText(d.data, roster); });
         
     node.selectAll('circle')
         .transition()
@@ -278,7 +278,7 @@ function loadVizSunburst(data, roster) {
         });
         
     path.append('title')
-        .text(function(d, roster) { return getVizMessageText(d.data, roster); });
+        .text(function(d) { return getVizMessageText(d.data, roster); });
         
     path.selectAll('path')
         .transition()
@@ -357,7 +357,7 @@ function loadVizTimeline(data, roster) {
         });
         
     nodes.append('title')
-        .text(function(d, roster) { return getVizMessageText(d, roster); });
+        .text(function(d) { return getVizMessageText(d, roster); });
         
     nodes.selectAll('circle')
         .transition()
